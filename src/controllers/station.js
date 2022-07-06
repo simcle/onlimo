@@ -34,6 +34,8 @@ exports.postStation = async (req, res) => {
         address: req.body.address,
         logger: req.body.logger,
         sensor: req.body.sensor,
+        idpel: req.body.idpel,
+        sim: req.body.sim,
         image: fileName,
         coordinates: JSON.parse(req.body.coordinates)
     })
@@ -73,6 +75,8 @@ exports.putStation = async (req, res) => {
         station.address = req.body.address
         station.logger = req.body.logger
         station.sensor = req.body.sensor
+        station.idpel = req.body.idpel
+        station.sim = req.body.sim
         station.coordinates = JSON.parse(req.body.coordinates)
         return station.save()
     })

@@ -10,6 +10,8 @@ const StationSchema = new Schema({
     coordinates: {type: Array},
     logger: {type: String},
     sensor: {type: String},
+    idpel: {type: String},
+    sim: {type: String},
     status: {type: String}
 }, {
     timestamps: true

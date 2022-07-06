@@ -23,6 +23,7 @@ const statisticRoutes = require('./src/routes/statistics');
 const earlyWarningRoutes = require('./src/routes/earlyWarning');
 const warningRouters = require('./src/routes/warning');
 const loggerRoutes = require('./src/routes/logger');
+const pusherRoutes = require('./src/routes/pusher');
 
 app.use('/auth', authRoutes);
 app.use('/dashboard', authenticateToken, dashboardRoutes);
@@ -33,6 +34,7 @@ app.use('/statistics', authenticateToken, statisticRoutes);
 app.use('/earlyWarning', authenticateToken, earlyWarningRoutes);
 app.use('/warnings', authenticateToken, warningRouters);
 app.use('/logger', authenticateToken, loggerRoutes);
+app.use('/pusher', authenticateToken, pusherRoutes);
 
 const PORT = process.env.PORT || 3000;
 mongoose.connect(process.env.DATA_BASE)
