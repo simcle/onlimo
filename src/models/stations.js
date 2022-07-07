@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const StationSchema = new Schema({
     segmentId:  {type: Schema.Types.ObjectId, ref: 'Segment'},
     stationId: {type: String, index: true, unique: true},
+    clientId: {type: String},
     name: {type: String},
     address: {type: String},
     image: {type:String},
