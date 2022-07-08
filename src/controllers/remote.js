@@ -1,8 +1,8 @@
 const pusher = require('../modules/pusher')
-
 exports.postPowerPump = (req, res) => {
-    const power = req.body.power
-    pusher.trigger("logger", "power", {
+    const power = req.body.power;
+    const stationId = req.body.stationId;
+    pusher.trigger(stationId, "power", {
         message: power
     })
     .catch(err => {
