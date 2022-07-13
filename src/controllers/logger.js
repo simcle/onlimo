@@ -399,6 +399,8 @@ exports.download = (req, res) => {
 },
 
 exports.postLogger = (req, res) => {
+	const stationId = req.user.stationId
+	
 	const logger = new Loggers({
 		segmentId: req.user.segmentId, 
 		stationId: req.user.stationId,

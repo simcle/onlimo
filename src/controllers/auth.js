@@ -40,10 +40,11 @@ exports.UserRegister = async (req, res) => {
 exports.StationToken = async (req, res) => {
 
     const segment = await Station.findOne({stationId: req.body.stationId}).select('segmentId')
-
-    const station = {segmentId: segment.segmentId, stationId: req.body.stationId}
-    const token = jwt.sign(station, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1h'})
-    res.status(200).json({token: token});
+    if(segment) {
+        const station = {segmentId: segment.segmentId, stationId: req.body.stationId}
+        const token = jwt.sign(station, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1h'})
+        res.status(200).json({token: token});
+    }
 }
 
 // user login

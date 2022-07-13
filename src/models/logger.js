@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const LoggerSchema = new Schema({
     segmentId: {type: Schema.Types.ObjectId},
     stationId: {type: String},
+    status: {type: String},
     ph: {type: Number},
     do: {type: Number},
     cond: {type: Number},

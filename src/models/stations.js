@@ -8,6 +8,7 @@ const StationSchema = new Schema({
     name: {type: String},
     address: {type: String},
     image: {type:String},
+    segmentation: {type: String},
     coordinates: {type: Array},
     logger: {type: String},
     sensor: {type: String},

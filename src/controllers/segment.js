@@ -7,7 +7,8 @@ exports.getSegment = (req, res) => {
             localField: '_id',
             foreignField: 'segmentId',
             as: 'stations'
-        }}
+        }},
+        {$sort: {createdAt: -1}}
     ])
     .then(result => {
         res.status(200).json(result)
@@ -20,7 +21,8 @@ exports.getSegment = (req, res) => {
 
 exports.postSegment = (req, res) => {
     const segment = new Segment({
-        name: req.body.name
+        name: req.body.name,
+        lokasi: req.body.lokasi
     })
     segment.save()
     .then(result => {
@@ -36,6 +38,7 @@ exports.putSegment = (req, res) => {
     Segment.findById(segmentId)
     .then(segment => {
         segment.name = req.body.name
+        segment.lokasi = req.body.lokasi
         return segment.save()
     })
     .then(result => {

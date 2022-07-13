@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Warnings = require('../models/warning');
 const EarlyWarning = require('../models/earlyWarning');
+const Stations = require('../models/stations');
+const notification = require('../modules/notification')
 
 exports.getWarning = (req, res) => {
     const currentPage = req.query.page || 1;
@@ -184,6 +186,7 @@ exports.postWarning = async (modbus) => {
     if (early.maxDept > 0 && modbus.dept > early.maxDept) {
         warning.push({segmentId: modbus.segmentId, stationId: modbus.stationId, addedAt: modbus.addedAt, description: 'Nilai DEPT tidak sesuai ambang batas maksimal',threshold: 'max', sensor: 'DEPT', value: modbus.dept})   
     }
+
     // minimal
     if (early.minPh > 0 && modbus.ph < early.minPh) {
         warning.push({segmentId: modbus.segmentId, stationId: modbus.stationId, addedAt: modbus.addedAt, description: 'Nilai pH tidak sesuai ambang batas minimal',threshold: 'min', sensor: 'pH', value: modbus.ph})   
@@ -208,7 +211,19 @@ exports.postWarning = async (modbus) => {
     }
     try {
         Warnings.insertMany(warning)
-        
+        .then(async (result) => {
+            for(let res of result) {
+                const station = await Stations.findOne({stationId: res.stationId})
+                let content = {
+                    name: station.name,
+                    threshold: res.threshold,
+                    description: res.description,
+                    sensor: res.sensor,
+                    value: res.value
+                }
+                await notification.postNotification('warning', content)
+            }
+        })
     } catch (error) {
         console.log(error);
     }

@@ -21,10 +21,10 @@ const activity = require('./src/modules/activity')
 
 io.on('connection', (socket) => {
     socket.on('station', (data) => {
-        activity.connectionStatus(data.stationId, 'connected', 'hakki', socket.id)
+        activity.connectionStatus(data.stationId, 'connected', 'Stasiun sudah kembali terkoneksi', socket.id)
     })
     socket.on('disconnect', () => {
-        activity.connectionStatus('', 'disconnected', 'hakki', socket.id)
+        activity.connectionStatus('', 'disconnected', 'Koneksi ke station terputus', socket.id)
     })
 })
 app.use(cors());
@@ -45,7 +45,9 @@ const statisticRoutes = require('./src/routes/statistics');
 const earlyWarningRoutes = require('./src/routes/earlyWarning');
 const warningRouters = require('./src/routes/warning');
 const loggerRoutes = require('./src/routes/logger');
+const notificationRoutes = require('./src/routes/notifications');
 const remoteRoutes = require('./src/routes/remote');
+
 
 app.use('/auth', authRoutes);
 app.use('/dashboard', authenticateToken, dashboardRoutes);
@@ -56,6 +58,7 @@ app.use('/statistics', authenticateToken, statisticRoutes);
 app.use('/earlyWarning', authenticateToken, earlyWarningRoutes);
 app.use('/warnings', authenticateToken, warningRouters);
 app.use('/logger', authenticateToken, loggerRoutes);
+app.use('/notification', authenticateToken, notificationRoutes);
 app.use('/remote', authenticateToken, remoteRoutes);
 
 const PORT = process.env.PORT || 3000;
