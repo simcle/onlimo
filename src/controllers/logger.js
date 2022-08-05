@@ -324,7 +324,7 @@ exports.download = (req, res) => {
 			{$sort: {addedAt: -1}},
 			{$project: {
 				station: '$station.name',
-				addedAt: {$dateToString: {format: '%d-%m-%Y %H:%M:%S', timezone: 'UTC', date: '$addedAt'}},
+				addedAt: {$dateToString: {format: '%d-%m-%Y %H:%M:%S', timezone: '+07:00', date: '$addedAt'}},
 				ph: 1,
 				do: 1,
 				turb: 1,
