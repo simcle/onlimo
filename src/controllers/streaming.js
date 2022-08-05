@@ -40,6 +40,9 @@ exports.getStreaming = (req, res) => {
             ],
             as: 'logger'
         }},
+        {
+            $sort: {status: 1}
+        }
     ])
     .then(result => {
         res.status(200).json(result);
