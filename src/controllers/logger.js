@@ -210,7 +210,7 @@ exports.getLogger = (req, res) => {
 
 exports.download = (req, res) => {
 	let workbook = new excel.Workbook()
-	let worksheet = workbook.addWorksheet('logger')
+	let worksheet = workbook.addWorksheet('loggers')
 	worksheet.columns = [
 		{key: 'addedAt', width: 25},
 		{key: 'station', width: 25},
