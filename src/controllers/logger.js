@@ -210,7 +210,7 @@ exports.getLogger = (req, res) => {
 
 exports.download = (req, res) => {
 	let workbook = new excel.Workbook()
-	let worksheet = workbook.addWorksheet('loggers')
+	let worksheet = workbook.addWorksheet('logger')
 	worksheet.columns = [
 		{key: 'addedAt', width: 25},
 		{key: 'station', width: 25},
@@ -324,7 +324,7 @@ exports.download = (req, res) => {
 			{$sort: {addedAt: -1}},
 			{$project: {
 				station: '$station.name',
-				addedAt: {$dateToString: {format: '%d-%m %H:%M:%S%Z', date: '$addedAt', timezone: '+07:00'}},
+				addedAt: {$dateToString: {format: '%d-%m-%Y %H:%M:%S%Z', date: '$addedAt', timezone: '+07:00'}},
 				ph: 1,
 				do: 1,
 				turb: 1,
