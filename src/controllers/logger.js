@@ -335,7 +335,7 @@ exports.download = (req, res) => {
 			}}
 		])
 		.then(async result => {
-			worksheet.getRow(3).values = ['Tanggal', 'Stasiun', 'pH', 'DO', 'TURB','SALT', 'COND', 'DEPT', 'TEMP']
+			worksheet.getRow(3).values = ['Tanggal', 'Nama Stasiun', 'pH', 'DO', 'TURB','SALT', 'COND', 'DEPT', 'TEMP']
 			worksheet.addRows(result)
 			res.setHeader(
 				"Content-Type",
