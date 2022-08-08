@@ -85,6 +85,7 @@ exports.getLogger = (req, res) => {
 	}
 	const stationId = req.query.stationId
 	if(stationId) {
+		console.log(stationId);
 		key.push({stationId: stationId})
 	}
 	if(key.length > 0) {
@@ -151,12 +152,17 @@ exports.getLogger = (req, res) => {
 		Loggers.aggregate([
 			{$match: query},
 			{$group: {
-				_id:{stationId:'$stationId', y: {$year: '$addedAt'}, m: {$month: '$addedAt'}, d: {$dayOfMonth: '$addedAt'}},
+				_id:{stationId:'$stationId', m: {$month: '$addedAt'}, d: {$dayOfMonth: '$addedAt'},  y: {$year: '$addedAt'}},
+				addedAt: {$first: {$dateToString: {format: '%Y-%m-%d', date: '$addedAt'}}},
 			}},
-			{$count: 'stationId'}
+			{$count: 'total'}
 		])
 		.then(count => {
-			totalItems = count[0].stationId;
+			if(count.length > 0) {
+				totalItems = count[0].stationId;
+			} else {
+				totalItems = 0
+			}
 			return Loggers.aggregate([
 				{$match: query},
 				{$lookup: {
