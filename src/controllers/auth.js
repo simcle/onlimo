@@ -82,7 +82,7 @@ exports.UserLogin = (req, res) => {
                     res.status(400).send('Wrong password');
                 }
             } catch (error) {
-                res.status(400).send()
+                res.status(400).send(error)
             }
         })();
     });
